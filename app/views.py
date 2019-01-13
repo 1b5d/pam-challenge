@@ -1,9 +1,11 @@
+from datetime import datetime
 from http import HTTPStatus
+from uuid import uuid4
 
-from flask import render_template, make_response
+from flask import render_template, make_response, request
 from flask_restful import Resource
 
-from app.db import Event
+from app.db import db, Event, EventDeviceType
 
 
 class Home(Resource):
@@ -28,3 +30,23 @@ class EventResource(Resource):
         Event.query.get_or_404(uuid)
         Event.query.filter(Event.id == uuid).delete()
         return None, HTTPStatus.OK.value
+
+    def post(self):
+        data = request.get_json()
+        if data is None:
+            return None, HTTPStatus.BAD_REQUEST.value
+
+        # TODO: refactor the following into a method on DB access level
+        event = Event(
+            id=str(uuid4()),
+            device_type=EventDeviceType(data.get('device_type')),
+            category=data.get('category'),
+            client=data.get('client'),
+            client_group=data.get('client_group'),
+            timestamp=datetime.now(),
+            valid=data.get('valid'),
+            value=data.get('value'))
+        db.session.add(event)
+        db.session.commit()
+
+        return event.to_dict(), HTTPStatus.CREATED.value

@@ -33,7 +33,8 @@ def test_event_get(client, app, db):
     response = client.get('/event/8098d8c7-f290-43bf-862b-94adb4496ed9')
     assert response.status_code == HTTPStatus.OK.value
     assert get_field(response.json, 'id') == '8098d8c7-f290-43bf-862b-94adb4496ed9'
-    # we can go on here and assert all the fields of the event
+
+    # TODO: assert all attributes of the event
     # and we can parametrize the test to look cleaner :)
     assert get_field(response.json, 'device_type') == 'desktop'
 
@@ -54,5 +55,14 @@ def test_event_delete_non_exist(client, app, db):
 
 
 def test_event_create(client, app, db):
-    response = client.post('event')
+    response = client.post('event', json={
+        'device_type': 'desktop',
+        'category': 1,
+        'client': 1,
+        'client_group': 1,
+        'valid': True,
+        'value': 1.0
+    })
     assert response.status_code == HTTPStatus.CREATED.value
+    # TODO: assert all attributes of the event
+    assert get_field(response.json, 'device_type') == 'desktop'
