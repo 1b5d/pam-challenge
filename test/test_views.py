@@ -21,7 +21,7 @@ def test_root(client, app):
     assert response.status_code == HTTPStatus.OK.value
 
 
-def test_event(client, app, db):
+def test_event_get(client, app, db):
     """
     tests the get event endpoint
 
@@ -36,3 +36,19 @@ def test_event(client, app, db):
     # we can go on here and assert all the fields of the event
     # and we can parametrize the test to look cleaner :)
     assert get_field(response.json, 'data.device_type') == 'desktop'
+
+
+def test_event_get_non_exist(client, app, db):
+    response = client.get('/event/non_exist')
+    assert response.status_code == HTTPStatus.NOT_FOUND.value
+
+
+def test_event_delete(client, app, db):
+    response = client.delete('/event/8098d8c7-f290-43bf-862b-94adb4496ed9')
+    assert response.status_code == HTTPStatus.OK.value
+
+
+def test_event_delete_non_exist(client, app, db):
+    response = client.delete('/event/non_exist')
+    assert response.status_code == HTTPStatus.NOT_FOUND.value
+
