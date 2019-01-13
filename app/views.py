@@ -1,6 +1,4 @@
-from datetime import datetime
 from http import HTTPStatus
-from uuid import uuid4
 
 from flask import render_template, make_response, request
 from flask_restful import Resource
@@ -38,12 +36,12 @@ class EventResource(Resource):
 
         # TODO: refactor the following into a method on DB access level
         event = Event(
-            id=str(uuid4()),
+            id=data.get('id'),
             device_type=EventDeviceType(data.get('device_type')),
             category=data.get('category'),
             client=data.get('client'),
             client_group=data.get('client_group'),
-            timestamp=datetime.now(),
+            timestamp=data.get('timestamp'),
             valid=data.get('valid'),
             value=data.get('value'))
         db.session.add(event)

@@ -41,7 +41,8 @@ class Event(db.Model):
             'category': self.category,
             'client': self.client,
             'client_group': self.client_group,
-            'timestamp': self.timestamp.isoformat(),
+            # Maybe there is a cleaner way of formatting the datetime
+            'timestamp': self.timestamp.isoformat(timespec='milliseconds') + 'Z',
             'valid': self.valid,
             'value': self.value
         }
