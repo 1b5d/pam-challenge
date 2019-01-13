@@ -26,9 +26,11 @@ def create_app():
 
     with app.app_context():
         from app.api import api
+        from app.db import db
         from app.routes import configure_routes
 
         configure_routes(api)
         api.init_app(app)
+        db.init_app(app)
 
     return app

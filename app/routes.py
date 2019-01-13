@@ -1,4 +1,4 @@
-from app.views import Home
+from app.views import Home, EventResource
 
 
 def configure_routes(api):
@@ -9,3 +9,4 @@ def configure_routes(api):
     """
 
     api.add_resource(Home, '/', methods=['GET'], endpoint='api.home')
+    api.add_resource(EventResource, '/event/<uuid>', methods=['GET'], endpoint='event.get')

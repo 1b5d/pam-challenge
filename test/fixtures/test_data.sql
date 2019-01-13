@@ -1,0 +1,2 @@
+INSERT INTO event ("id", "device_type", "category", "client", "client_group", "timestamp", "valid", "value")
+VALUES ('8098d8c7-f290-43bf-862b-94adb4496ed9', 'DESKTOP', 1, 1, 1, '2018-09-04T00:39:33.851574Z', TRUE, 1.0);
