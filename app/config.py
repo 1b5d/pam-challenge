@@ -35,7 +35,7 @@ class TestingConfig(Config):
     """
     TESTING = True
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@127.0.0.1:5432/pam_challenge_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@db:5432/pam_challenge_test'
 
 
 class ProductionConfig(Config):

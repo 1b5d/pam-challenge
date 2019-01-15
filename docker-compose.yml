@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      args:
+        - FLASK_APP=wsgi.py
+        - APP_SETTINGS=app.config.DevelopmentConfig
+    ports:
+      - "80:80"
+    command: flask run -h 0.0.0.0 -p 80 --no-reload --no-debugger
+    environment:
+      - FLASK_APP=wsgi.py
+      - APP_SETTINGS=app.config.DevelopmentConfig
+
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+    - POSTGRES_PASSWORD=postgres
+    - POSTGRES_DB=pam_challenge
