@@ -35,6 +35,9 @@ class ReportResource(Resource):
         rows = Event.query.with_group_by(group_by, aggregates)\
             .with_order_by(order_by)
 
+        # TODO: cross validate the arguments to make sure there
+        #  are no illegal input using intersecting sets
+
         if clients:
             rows = rows.filter(Event.client.in_(clients))
 
@@ -58,6 +61,7 @@ class ReportResource(Resource):
 
         rows = rows.paginate(page, per_page, error_out=False)
 
+        # I would use a separate serialization layer here to separate the presentation logic
         return {
             'pagination': {
                 'total_count': rows.total,

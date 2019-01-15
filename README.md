@@ -17,3 +17,6 @@ You can run the tests using another docker compose config file, just run:
 ```
 docker-compose -f ./docker-compose.test.yml up
 ```
+
+### TODOs:
+The API is still missing the support for different responses like in the case when the input parameters or the headers are not valid (I was picking up my battles here)

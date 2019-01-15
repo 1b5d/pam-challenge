@@ -12,6 +12,10 @@ class Home(Resource):
     """
 
     def get(self):
+        """
+        Just static page as a placeholder for the home page.
+        :return:
+        """
         return make_response(render_template('home.html'))
 
 
@@ -35,6 +39,7 @@ class EventResource(Resource):
             return None, HTTPStatus.BAD_REQUEST.value
 
         # TODO: refactor the following into a method on DB access level
+        # TODO: validate the enum values (device_type)
         event = Event(
             id=data.get('id'),
             device_type=EventDeviceType(data.get('device_type')),

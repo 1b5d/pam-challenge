@@ -18,6 +18,11 @@ class EventDeviceType(str, Enum):
 
 
 class EventQuery(BaseQuery):
+    """
+    A custom query class to implement the business logic in the Event queries
+    I'm not completely happy with how this looks like, I would try to structure it / refactor it into
+    smaller pieces. Again - picking up my battles :)
+    """
     def with_group_by(self, group_by, aggregates):
         if not group_by:
             return self
